@@ -36,6 +36,7 @@ This script converts PDF and DOCX documents to audio files and automatically upl
 
 ## Usage
 
+## With Local Files
 ```python
 from doc_to_audio import DocumentToAudio
 
@@ -44,6 +45,21 @@ result = converter.process_document(
     input_path='path/to/your/document.pdf',
     output_path='output.mp3',  # Optional
     language='en'  # Optional, defaults to English
+)
+
+print(f"Audio file created at: {result['audio_path']}")
+print(f"Uploaded to Google Drive with ID: {result['drive_file_id']}")
+```
+
+## With Google Docs
+```python
+from doc_to_audio import DocumentToAudio
+
+converter = DocumentToAudio()
+result = converter.process_document(
+    input_path='https://docs.google.com/document/d/YOUR_DOC_ID/edit',
+    language='en',  # Optional, defaults to English
+    is_google_doc=True  # Important: set this to True for Google Docs
 )
 
 print(f"Audio file created at: {result['audio_path']}")
