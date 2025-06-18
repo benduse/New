@@ -1,24 +1,54 @@
 # Document to Audio Converter
 
-This script converts PDF and DOCX documents to audio files and automatically uploads them to Google Drive.
+A powerful Python tool that converts various document formats to audio files and automatically saves them to Google Drive. This tool supports local PDF and DOCX files, as well as Google Docs documents.
 
 ## Features
 
-- Supports PDF and DOCX file formats
-- Converts text to speech using Google Text-to-Speech (gTTS)
-- Automatically uploads generated audio files to Google Drive
-- Supports multiple languages
+### Document Support
+- **PDF Files**: Convert any readable PDF document to audio
+- **DOCX Files**: Convert Microsoft Word documents to audio
+- **Google Docs**: Direct integration with Google Docs for online documents
+- **Text Extraction**: Intelligent text extraction maintaining document structure
 
-## Prerequisites
+### Audio Conversion
+- **Multiple Languages**: Support for multiple languages using Google Text-to-Speech (gTTS)
+- **Custom Output**: Configurable output paths and filenames
+- **Quality Control**: High-quality audio output with natural-sounding speech
+- **Format**: MP3 output format for wide compatibility
 
-1. Python 3.x
-2. Required packages (install using conda/pip):
-   - gTTS
-   - PyPDF2
-   - python-docx
-   - google-auth-oauthlib
-   - google-auth-httplib2
-   - google-api-python-client
+### Google Integration
+- **Google Drive Upload**: Automatic upload of generated audio files to Google Drive
+- **Google Docs Access**: Direct access to Google Docs without downloading
+- **Authentication**: Secure OAuth2 authentication for Google services
+- **File Management**: Organized file storage in Google Drive
+
+### Error Handling
+- Robust error handling for file operations
+- Clear error messages for troubleshooting
+- Graceful handling of network issues
+- Validation of input documents and formats
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone [repository-url]
+cd document-to-audio
+```
+
+2. Install dependencies using conda:
+```bash
+conda env update -f environment.yml
+```
+
+3. Set up Google Cloud Project:
+   - Go to [Google Cloud Console](https://console.cloud.google.com)
+   - Create a new project
+   - Enable the required APIs:
+     - Google Drive API
+     - Google Docs API
+   - Create OAuth 2.0 credentials
+   - Download credentials and save as `credentials.json` in the project directory
 
 ## Setup
 
@@ -84,9 +114,102 @@ The script includes error handling for:
 - Google Drive API authentication errors
 - Text-to-speech conversion errors
 
-## Notes
+## Limitations
 
-- Large documents may take longer to process
-- Audio files are temporarily stored locally before being uploaded to Google Drive
-- Make sure you have sufficient Google Drive storage space
-- The first time you run the script, it will open a browser window for Google authentication
+### Document Processing
+- PDF files must have extractable text (scanned PDFs not supported)
+- Complex document layouts may affect text extraction order
+- Tables and diagrams are processed as text only
+- Maximum file size: 100MB for local files, 50MB for Google Docs
+
+### Audio Conversion
+- Maximum text length: 100,000 characters per conversion
+- Audio quality depends on gTTS service
+- Network connection required for text-to-speech conversion
+- Processing time increases with document length
+
+### Google Services
+- Requires internet connection
+- Google account and API setup required
+- API quotas and limitations apply
+- OAuth2 credentials must be maintained
+
+### Performance
+- Large documents may take significant processing time
+- Concurrent processing limited by API quotas
+- Memory usage scales with document size
+- Network speed affects conversion time
+
+## Development
+
+### Running Tests
+```bash
+# Run all tests
+pytest tests/
+
+# Run unit tests only
+pytest tests/unit/
+
+# Run integration tests
+pytest tests/integration/
+```
+
+### Project Structure
+```
+document_to_audio/
+├── src/
+│   ├── core/           # Main conversion logic
+│   ├── services/       # External service integrations
+│   └── utils/          # Helper functions
+├── tests/
+│   ├── unit/          # Unit tests
+│   └── integration/   # Integration tests
+└── docs/              # Documentation
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Write tests for new features
+4. Ensure all tests pass
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Google Cloud Platform for APIs
+- gTTS for text-to-speech conversion
+- PyPDF2 for PDF processing
+- python-docx for DOCX processing
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Authentication Errors**
+   - Verify credentials.json is properly configured
+   - Check Google Cloud Console API enablement
+   - Ensure proper OAuth2 scopes
+
+2. **File Processing Errors**
+   - Verify file format compatibility
+   - Check file permissions
+   - Ensure file is not corrupted
+
+3. **Network Issues**
+   - Check internet connection
+   - Verify API quotas
+   - Check firewall settings
+
+4. **Audio Output Issues**
+   - Verify supported language code
+   - Check available disk space
+   - Ensure write permissions
+
+### Support
+
+For issues and feature requests, please use the GitHub issue tracker.
